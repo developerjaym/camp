@@ -22,17 +22,17 @@ public class CamperService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    @Lazy
-    private SignupService signupService;
-
     public CamperSearchResultDTO create(CreateCamperDTO createCamperDTO) {
         Camper camper = modelMapper.map(createCamperDTO, Camper.class);
         return modelMapper.map(repository.save(camper), CamperSearchResultDTO.class);
     }
 
     public List<CamperSearchResultDTO> getAll() {
-        return repository.findAll().stream().map(camper -> modelMapper.map(camper, CamperSearchResultDTO.class)).toList();
+        return repository
+                .findAll()
+                .stream()
+                .map(camper -> modelMapper.map(camper, CamperSearchResultDTO.class))
+                .toList();
     }
 
     public CamperResponseDTO getById(Long id) {
@@ -40,7 +40,6 @@ public class CamperService {
                 .findById(id)
                 .map(camper -> modelMapper.map(camper,
                 CamperResponseDTO.class)).orElseThrow(() -> new NotFoundException("Camper not found"));
-        camperResponseDTO.setActivities(signupService.getActivitiesByCamperId(id));
         return camperResponseDTO;
     }
 

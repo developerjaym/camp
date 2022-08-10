@@ -35,6 +35,12 @@ public class Activity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @ManyToMany
+    @JoinTable(
+            name = "signups",
+            joinColumns = @JoinColumn(name = "activity_id"),
+            inverseJoinColumns = @JoinColumn(name = "camper_id"))
+    private List<Camper> campers;
 }
 
 

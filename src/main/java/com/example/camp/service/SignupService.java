@@ -33,13 +33,4 @@ public class SignupService {
         signup = repository.save(signup);
         return modelMapper.map(signup.getActivity(), ActivityDTO.class);
     }
-
-    public List<ActivityDTO> getActivitiesByCamperId(Long camperId) {
-        List<Signup> signupsForCamper = repository.findAllByCamperId(camperId);
-        return signupsForCamper.stream()
-                .map(signup -> signup.getActivity())
-                .map(activity -> modelMapper.map(activity,
-                    ActivityDTO.class))
-                .toList();
-    }
 }

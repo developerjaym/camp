@@ -34,4 +34,7 @@ public class Camper {
     @LastModifiedDate
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @ManyToMany(mappedBy = "campers")
+    private List<Activity> activities;
 }
